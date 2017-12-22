@@ -1,0 +1,72 @@
+package com.uhg.sherlock.drools
+
+import com.example.drools.model.Product
+import com.uhc.sherlock.orchestration.dto.ClaimDTO
+import com.uhg.sherlock.drools.service.ClaimService
+import com.uhg.sherlock.drools.RuleExecutionLogger
+import com.uhg.sherlock.spark.ClaimRuleResult
+global org.slf4j.Logger RuleLogger;
+global com.uhg.sherlock.drools.service.ServiceFactory ServiceFactory;
+
+dialect "java"
+
+rule "Matching NPI2"
+	salience 3
+	when
+        $ruleExecution: Boolean(booleanValue == true) from RuleExecutionLogger.logRuleExecution("Matching NPI2")
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+	    $claimRuleResult.setRecommendation("true");
+    	$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim applying claim_group_rules2.");
+end
+
+rule "Matching TIN2"
+	salience 2
+	when
+	    $ruleExecution: Boolean(booleanValue == true) from RuleExecutionLogger.logRuleExecution("Matching TIN2")
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	rules = rules + ",";
+    	$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN applying claim_group_rules2");
+end
+
+rule "Matching PROC_CODE2"
+	salience 1
+	when
+	    $ruleExecution: Boolean(booleanValue == true) from RuleExecutionLogger.logRuleExecution("Matching PROC_CODE2")
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	rules = rules + ",";
+    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE applying claim_group_rules2");
+end
+rule "Matching TXNMY_CODE2"
+	salience 0
+	when
+	    $ruleExecution: Boolean(booleanValue == true) from RuleExecutionLogger.logRuleExecution("Matching TAXONOMY_CODE2")
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTXNMYCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	rules = rules + ",";
+    	$claimRuleResult.setRules(rules + "txnmycode");
+	    RuleLogger.debug("Found matching Claim. with TAXONOMY_CODE2");
+end
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://jboss.org/kie/6.0.0/kmodule">
+    <kbase name="claim" packages="claim">
+        <ksession name="session-claimrules" type="stateless"/>
+    </kbase>
+    <kbase name="claim_loadtest" packages="performance">
+        <ksession name="session-claimrulesloadtest" type="stateless"/>
+    </kbase>
+    <kbase name="claim_group_rules" packages="claim, claim_group_rules2, claim_group_rules3">
+        <ksession name="session-claimgrouprules" type="stateless"/>
+    </kbase>
+</kmodule>

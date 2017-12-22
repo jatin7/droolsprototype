@@ -1,0 +1,744 @@
+package com.uhg.sherlock.drools
+
+import com.example.drools.model.Product
+import com.uhc.sherlock.orchestration.dto.ClaimDTO
+import com.uhg.sherlock.drools.service.ClaimService
+import com.uhg.sherlock.spark.ClaimRuleResult
+global org.slf4j.Logger RuleLogger;
+global com.uhg.sherlock.drools.service.ServiceFactory ServiceFactory;
+
+dialect "java"
+
+rule "Matching NPI01"
+salience 49
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+	    $claimRuleResult.setRecommendation("true");
+    	$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim.");
+end
+
+rule "Matching TIN01"
+salience 48
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	rules = rules + ",";
+    	$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+end
+
+rule "Matching PROC_CODE01"
+salience 47
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	rules = rules + ",";
+    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY01"
+salience 46
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	rules = rules + ",";
+    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+rule "Matching NPI02"
+salience 45
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN02"
+salience 44
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE02"
+salience 43
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY02"
+salience 42
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI3"
+salience 41
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN3"
+salience 40
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE3"
+salience 39
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY3"
+salience 38
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI4"
+salience 37
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN4"
+salience 36
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE4"
+salience 35
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY4"
+salience 34
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+
+rule "Matching NPI5"
+salience 33
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN5"
+salience 32
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE5"
+salience 31
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY5"
+salience 30
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI6"
+salience 29
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN6"
+salience 28
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE6"
+salience 27
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY6"
+salience 26
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI7"
+salience 25
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN7"
+salience 24
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE7"
+salience 23
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY7"
+salience 22
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI8"
+salience 21
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN8"
+	salience 20
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE8"
+	salience 19
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY8"
+	salience 18
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+rule "Matching NP9"
+	salience 17
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN9"
+	salience 16
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE9"
+	salience 15
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY9"
+	salience 14
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI10"
+	salience 13
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN10"
+	salience 12
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE10"
+	salience 11
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY10"
+	salience 10
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching NPI11"
+	salience 9
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN11"
+	salience 8
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE11"
+	salience 7
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY11"
+	salience 6
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+rule "Matching NPI12"
+	salience 5
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateNPI($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules("npi");
+	    RuleLogger.debug("Found matching Claim with NPI");
+end
+
+rule "Matching TIN12"
+	salience 4
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validateTIN($claimDTO)
+	then
+	    String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "tin");
+	    RuleLogger.debug("Found matching Claim. with TIN");
+	    
+end
+
+rule "Matching PROC_CODE12"
+	salience 3
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY12"
+	salience 2
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+rule "Matching PROC_CODE0"
+	salience 1
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+    		$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end
+
+
+rule "Matching TAXONOMY0"
+	salience 0
+	when
+        $claimRuleResult : ClaimRuleResult()
+        $claimDTO : ClaimDTO()
+        Boolean(booleanValue == true) from ServiceFactory.getClaimService().validatePROCCODE($claimDTO)
+	then
+		String rules = $claimRuleResult.getRules();
+	    $claimRuleResult.setRecommendation("true");
+	    if(!rules.isEmpty())
+	    	$claimRuleResult.setRules(rules + "proccode");
+	    RuleLogger.debug("Found matching Claim. with PROC_CODE");
+end

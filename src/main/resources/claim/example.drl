@@ -1,0 +1,12 @@
+package com.example.drools
+
+import com.example.drools.model.Product
+
+
+dialect "java"
+
+rule "is of valid price" 
+	when 
+		$p : Product(price <100000) 
+		then $p.setPrice(200);
+	end
